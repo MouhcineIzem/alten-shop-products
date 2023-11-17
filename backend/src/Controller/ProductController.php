@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
@@ -47,6 +48,19 @@ class ProductController extends AbstractController
 
         return $this->json(['message' => 'Product added successfully.']);
     }
+
+
+    #[Route('/api/products/{id}', methods: ['GET'])]
+    public function getProductById(int $id): Response {
+        $product = $this->productService->getProductById($id);
+
+        if ($product === null) {
+            return $this->json(['error' => 'Product not found.'], 404);
+        }
+        return $this->json($product);
+    }
+
+    
 
 
 }

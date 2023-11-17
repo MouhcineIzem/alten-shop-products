@@ -29,6 +29,20 @@ class ProductService
         file_put_contents($this->productsFile, json_encode($products));
     }
 
+    public function getProductById(int $id): ?array {
+
+        $products = $this->getAllProducts();
+//        dd($products['data']);
+
+        foreach ($products['data'] as $product) {
+//            dd($product);
+            if ($product['id'] === $id) {
+                return $product;
+            }
+        }
+        return null;
+    }
+
 
 
 
