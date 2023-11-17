@@ -43,7 +43,23 @@ class ProductService
         return null;
     }
 
+    public function updateProduct(int $id, array $updatedProduct): bool {
+
+        $products = $this->getAllProducts();
+
+//        dd($products);
+
+        $index = array_search($id, array_column($products['data'], 'id'));
+//        dd($index);
 
 
+        if ($index === false) return false;
+
+        $products['data'][$index] = array_merge($products['data'][$index], $updatedProduct);
+
+        file_put_contents($this->productsFile, json_encode($products));
+
+        return true;
+    }
 
 }

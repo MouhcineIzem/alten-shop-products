@@ -60,7 +60,23 @@ class ProductController extends AbstractController
         return $this->json($product);
     }
 
+    #[Route('/api/putProduct/{id}', methods:['PUT'])]
+    public function updateProduct(int $id, Request $request): Response {
+//        dd($request->getContent());
+
+        $data = json_decode($request->getContent(), true);
+
+        $success = $this->productService->updateProduct($id, $data);
+
+        if (!$success) {
+            return $this->json(['error' => 'Product not found.']);
+        }
+        return $this->json(['message' => 'Product updated successfully.']);
+    }
+
     
+
+
 
 
 }
