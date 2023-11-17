@@ -42,7 +42,7 @@ class ProductController extends AbstractController
 
         $data = json_decode($request->getContent(), true);
 
-        dd($data);
+//        dd($data);
 
         $this->productService->addProduct($data);
 

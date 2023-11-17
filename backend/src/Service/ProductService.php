@@ -69,8 +69,9 @@ class ProductService
         $index = array_search($id, array_column($products['data'], 'id'));
 
         if ($index === false) return false;
-
+        
         array_splice($products['data'], $index, 1);
+
         file_put_contents($this->productsFile, json_encode($products));
 
         return true;
