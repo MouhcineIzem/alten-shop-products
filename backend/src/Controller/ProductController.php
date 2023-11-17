@@ -74,7 +74,19 @@ class ProductController extends AbstractController
         return $this->json(['message' => 'Product updated successfully.']);
     }
 
-    
+    #[Route('/api/deleteProduct/{id}', methods:['DELETE'])]
+    public function deleteProduct(int $id): Response {
+
+        $success = $this->productService->deleteProduct($id);
+
+        if (!$success) {
+            return $this->json(['error' => 'Product not found.']);
+        }
+
+        return $this->json(['message' => 'Product deleted successfully.']);
+    }
+
+
 
 
 

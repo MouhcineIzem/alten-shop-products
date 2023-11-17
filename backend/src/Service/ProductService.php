@@ -62,4 +62,18 @@ class ProductService
         return true;
     }
 
+    public function deleteProduct(int $id): bool {
+
+        $products = $this->getAllProducts();
+
+        $index = array_search($id, array_column($products['data'], 'id'));
+
+        if ($index === false) return false;
+
+        array_splice($products['data'], $index, 1);
+        file_put_contents($this->productsFile, json_encode($products));
+
+        return true;
+    }
+
 }
