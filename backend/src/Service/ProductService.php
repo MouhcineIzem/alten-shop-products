@@ -20,5 +20,16 @@ class ProductService
         return json_decode(file_get_contents($this->productsFile), true);
     }
 
+    public function addProduct(array $product): void {
+
+        $products = $this->getAllProducts();
+
+        $products['data'][] = $product;
+
+        file_put_contents($this->productsFile, json_encode($products));
+    }
+
+
+
 
 }

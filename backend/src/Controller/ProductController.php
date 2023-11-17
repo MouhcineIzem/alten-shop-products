@@ -6,6 +6,7 @@ use App\Service\ProductService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
@@ -33,6 +34,18 @@ class ProductController extends AbstractController
         $data = json_decode($jsonData, true);
 
         return new JsonResponse($data);
+    }
+
+    #[Route('/api/product', methods: ['POST'])]
+    public function addProduct(Request $request) {
+
+        $data = json_decode($request->getContent(), true);
+
+        dd($data);
+
+        $this->productService->addProduct($data);
+
+        return $this->json(['message' => 'Product added successfully.']);
     }
 
 
